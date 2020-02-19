@@ -1,0 +1,17 @@
+{
+  "hub": {
+    "Introduction": ["welcome"]
+  },
+  "service": {
+    "Introduction": [
+      "service/home"
+    ],
+    "API Reference": ["doc2"],
+    "Second Category": ["doc3"]
+  },
+  "web": {
+    "Introduction": ["doc4", "doc5"]
+  },
+  "mobile": {
+  }
+}

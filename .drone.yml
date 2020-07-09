@@ -1,0 +1,40 @@
+kind: pipeline
+type: docker
+name: Build and test server
+
+steps:
+  - name: install dependencies
+    image: node:lts-alpine
+    commands:
+      - yarn install
+
+  - name: build
+    image: node:lts-alpine
+    commands:
+      - yarn build
+
+---
+kind: pipeline
+type: ssh
+name: Deploy to production
+
+server:
+  host:
+    from_secret: prod_host
+  user:
+    from_secret: prod_username
+  ssh_key:
+    from_secret: prod_key
+
+trigger:
+  branch:
+    - master
+
+steps:
+  - name: checkout and pull
+    commands:
+      - git checkout master
+      - git pull
+  - name: deploy
+    commands:
+      - docker-compose up -d --build
